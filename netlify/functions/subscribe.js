@@ -14,8 +14,8 @@ exports.handler = async (event) => {
   const EMAILJS_PUBLIC_KEY  = "Y1XSQ-zODKTu5FRV-";
   const EMAILJS_SERVICE_ID  = "service_vdy28qv";
   // Create these two templates in EmailJS (see instructions):
-  const EMAILJS_LEAD_TEMPLATE  = "PASTE_YLH_LEAD_TEMPLATE_ID";   // email to the quiz taker
-  const EMAILJS_ADMIN_TEMPLATE = "PASTE_YLH_ADMIN_TEMPLATE_ID";  // notification to you
+  const EMAILJS_LEAD_TEMPLATE  = "template_0qea55c";   // email to the quiz taker
+  const EMAILJS_ADMIN_TEMPLATE = "template_kul8shj";  // notification to you
   const ADMIN_EMAIL = "Accomplify.inc@gmail.com";
 
   // ── SEGMENT ─────────────────────────────────────────────────
@@ -176,4 +176,3 @@ exports.handler = async (event) => {
     body: JSON.stringify({ success: true })
   };
 };
-
