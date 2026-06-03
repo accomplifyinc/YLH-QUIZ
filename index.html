@@ -268,16 +268,25 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
   <p>by Bren Dee · a Faceless Digital Auntie brand<br>Personal-use license · not for resale or redistribution</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-/* ── CONFIGURE ──────────────────────────────────────────────── */
+// EmailJS — browser-side (same as FDA quiz, proven to work)
+emailjs.init({ publicKey: "Y1XSQ-zODKTu5FRV-" });
+
+const EMAILJS_SERVICE_ID     = "service_vdy28qv";
+const EMAILJS_LEAD_TEMPLATE  = "template_0qea55c";
+const EMAILJS_ADMIN_TEMPLATE = "template_kul8shj";
+const ADMIN_EMAIL            = "Accomplify.inc@gmail.com";
+
+// Netlify function — Flodesk only
 const FUNCTION_URL = "https://ylh-quiz.netlify.app/.netlify/functions/subscribe";
+
 const LINKS = {
   birthday:   "https://shop.beacons.ai/facelessdigitalauntie/3aa9cf96-6bdd-4b28-89b6-924807806478",
   fathersday: "https://shop.beacons.ai/facelessdigitalauntie/84f72236-5a40-4973-a3e2-dac3043b86ca",
   trip:       "https://shop.beacons.ai/facelessdigitalauntie/63dc8dfd-0ab2-4603-9003-73e86d2fbde1",
   bundle:     "https://shop.beacons.ai/facelessdigitalauntie/17e2c7ba-8e08-4a03-9576-1b5d850edcd1"
 };
-/* ────────────────────────────────────────────────────────────── */
 
 const QUESTIONS = [
   { q:"What are you trying to get sorted?", opts:[
@@ -393,12 +402,42 @@ function submitEmail(){
   err.style.display="none";
   const btn=document.getElementById("reveal-btn");
   btn.innerHTML='<span class="spinner"><\/span>One moment\u2026'; btn.disabled=true;
-  const inPreview=FUNCTION_URL.indexOf("PASTE_")>-1;
-  if(inPreview){ setTimeout(()=>showResult(name),600); return; }
+
+  const PRODUCT_NAMES={
+    birthday:"Your Birthday Party, Handled",
+    fathersday:"Your Father's Day, Handled",
+    trip:"Your Trip, Handled"
+  };
+  const product_name=PRODUCT_NAMES[matchKey]||"Your Life, Handled";
+
+  // Send lead email via EmailJS directly from browser (same as FDA quiz)
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_LEAD_TEMPLATE, {
+    first_name: name,
+    email:      email,
+    to_email:   email,
+    product_name: product_name,
+    matched_planner: matchKey
+  }).then(()=>{
+    console.log("Lead email sent");
+  }).catch(e=>{ console.error("Lead email error:", e); });
+
+  // Admin notification
+  emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_ADMIN_TEMPLATE, {
+    first_name:   name,
+    email:        email,
+    to_email:     ADMIN_EMAIL,
+    product_name: product_name,
+    matched_planner: matchKey
+  }).catch(e=>{ console.error("Admin email error:", e); });
+
+  // Flodesk via Netlify function (fire and forget)
   fetch(FUNCTION_URL,{
     method:"POST", headers:{"Content-Type":"application/json"},
     body:JSON.stringify({email,first_name:name,matched_planner:matchKey})
-  }).then(()=>showResult(name)).catch(()=>showResult(name));
+  }).catch(()=>{});
+
+  // Show result immediately — don't wait on any API
+  showResult(name);
 }
 
 function showResult(name){
