@@ -97,8 +97,11 @@ exports.handler = async (event) => {
 
   // ── 1. ADD TO FLODESK ────────────────────────────────────────
   try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000); // 5 second timeout
     await fetch("https://api.flodesk.com/v1/subscribers", {
       method: "POST",
+      signal: controller.signal,
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Basic " + Buffer.from(FLODESK_API_KEY + ":").toString("base64")
@@ -110,20 +113,20 @@ exports.handler = async (event) => {
         custom_fields: { matched_planner: matched_planner || "birthday" }
       })
     });
+    clearTimeout(timeout);
+    console.log("Flodesk: subscriber added");
   } catch (err) {
-    console.error("Flodesk error:", err);
-    // Don't block — continue to emails even if Flodesk has issues
+    console.error("Flodesk error:", err.message);
+    // Don't block — continue to emails even if Flodesk times out
   }
 
   // ── 2. EMAIL TO LEAD (delivery + match result) ───────────────
-  // Template variables available in your EmailJS lead template:
-  //   {{first_name}}      → their first name
-  //   {{email}}           → their email
-  //   {{product_name}}    → e.g. "Your Birthday Party, Handled"
-  //   {{matched_planner}} → birthday / fathersday / trip
   try {
-    await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    const ctrl1 = new AbortController();
+    const t1 = setTimeout(() => ctrl1.abort(), 8000);
+    const leadRes = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
       method: "POST",
+      signal: ctrl1.signal,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         service_id:  EMAILJS_SERVICE_ID,
@@ -134,24 +137,25 @@ exports.handler = async (event) => {
           email,
           product_name,
           matched_planner: matched_planner || "birthday",
-          message,           // the {{{message}}} block in your EmailJS template
+          message,
           to_email: email,
         }
       })
     });
+    clearTimeout(t1);
+    const leadText = await leadRes.text();
+    console.log("EmailJS lead status:", leadRes.status, leadText);
   } catch (err) {
-    console.error("EmailJS lead email error:", err);
+    console.error("EmailJS lead email error:", err.message);
   }
 
   // ── 3. ADMIN NOTIFICATION TO YOU ────────────────────────────
-  // Template variables available in your EmailJS admin template:
-  //   {{first_name}}      → lead's name
-  //   {{email}}           → lead's email
-  //   {{product_name}}    → which planner they matched
-  //   {{matched_planner}} → birthday / fathersday / trip
   try {
-    await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    const ctrl2 = new AbortController();
+    const t2 = setTimeout(() => ctrl2.abort(), 8000);
+    const adminRes = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
       method: "POST",
+      signal: ctrl2.signal,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         service_id:  EMAILJS_SERVICE_ID,
@@ -166,8 +170,11 @@ exports.handler = async (event) => {
         }
       })
     });
+    clearTimeout(t2);
+    const adminText = await adminRes.text();
+    console.log("EmailJS admin status:", adminRes.status, adminText);
   } catch (err) {
-    console.error("EmailJS admin email error:", err);
+    console.error("EmailJS admin email error:", err.message);
   }
 
   return {
