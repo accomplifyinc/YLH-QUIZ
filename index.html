@@ -410,13 +410,56 @@ function submitEmail(){
   };
   const product_name=PRODUCT_NAMES[matchKey]||"Your Life, Handled";
 
-  // Send lead email via EmailJS directly from browser (same as FDA quiz)
+  const PRODUCT_DETAILS={
+    birthday:{
+      description:"No more sticky notes or tabs open. The whole celebration in one place.",
+      contents:"Guest list &amp; RSVPs &middot; Checklist &middot; Food &amp; cake &middot; Shopping list &middot; Budget dashboard",
+      buy_link:LINKS.birthday
+    },
+    fathersday:{
+      description:"No more last-minute scrambling. The plan, the people, the food, the budget.",
+      contents:"Checklist &middot; Guests &amp; RSVPs &middot; Menu &amp; drinks &middot; Shopping list &middot; Budget dashboard",
+      buy_link:LINKS.fathersday
+    },
+    trip:{
+      description:"No more tabs or notes app spirals. The whole journey in one place. Drive or fly.",
+      contents:"To-dos &middot; Route &amp; stops &middot; Bookings &middot; Packing list &middot; Budget dashboard",
+      buy_link:LINKS.trip
+    }
+  };
+  const d=PRODUCT_DETAILS[matchKey]||PRODUCT_DETAILS.birthday;
+
+  const message=
+    '<p style="margin:0 0 8px;font-family:Georgia,serif;font-size:22px;font-weight:700;color:#0d2140;">Hi '+name+',</p>'+
+    '<p style="margin:0 0 20px;font-size:14px;color:#8a948f;">Your quiz match is here \u2014 here\'s everything you need.</p>'+
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fdf3dc;border:2px solid #c9972b;border-radius:12px;margin-bottom:20px;">'+
+    '<tr><td style="padding:18px 20px;">'+
+    '<p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c9972b;">YOUR MATCH</p>'+
+    '<p style="margin:0 0 8px;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#0d2140;">'+product_name+'</p>'+
+    '<p style="margin:0;font-size:13px;color:#3a3228;">'+d.description+'</p>'+
+    '</td></tr></table>'+
+    '<p style="margin:0 0 8px;font-family:Georgia,serif;font-size:15px;font-weight:700;color:#0d2140;">What\'s inside</p>'+
+    '<p style="margin:0 0 20px;font-size:13px;color:#3a3228;">'+d.contents+'</p>'+
+    '<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;"><tr><td align="center">'+
+    '<a href="'+d.buy_link+'" style="display:inline-block;background:#9c3567;color:#fff;font-family:Helvetica,sans-serif;font-size:15px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:40px;">Get it for $9 &rarr;</a>'+
+    '</td></tr></table>'+
+    '<p style="margin:0 0 4px;font-size:12px;color:#8a948f;">&#10003; Works on your phone, iPad, or laptop</p>'+
+    '<p style="margin:0 0 4px;font-size:12px;color:#8a948f;">&#10003; No app, no login \u2014 saves automatically</p>'+
+    '<p style="margin:0 0 20px;font-size:12px;color:#8a948f;">&#10003; $9 &middot; instant download &middot; yours to reuse every year</p>'+
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f0e8;border-radius:10px;"><tr><td style="padding:16px 18px;">'+
+    '<p style="margin:0 0 4px;font-family:Georgia,serif;font-size:14px;font-weight:700;color:#0d2140;">More things coming up this year?</p>'+
+    '<p style="margin:0 0 10px;font-size:12px;color:#3a3228;">Get all three planners \u2014 birthday, trip, Father\'s Day \u2014 for $19.</p>'+
+    '<a href="'+LINKS.bundle+'" style="display:inline-block;background:#0d2140;color:#fff;font-family:Helvetica,sans-serif;font-size:12px;font-weight:600;text-decoration:none;padding:9px 18px;border-radius:6px;">See the Collection &rarr;</a>'+
+    '</td></tr></table>';
+
+  // Send lead email via EmailJS directly from browser
   emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_LEAD_TEMPLATE, {
-    first_name: name,
-    email:      email,
-    to_email:   email,
-    product_name: product_name,
-    matched_planner: matchKey
+    first_name:      name,
+    email:           email,
+    to_email:        email,
+    product_name:    product_name,
+    matched_planner: matchKey,
+    message:         message
   }).then(()=>{
     console.log("Lead email sent");
   }).catch(e=>{ console.error("Lead email error:", e); });
