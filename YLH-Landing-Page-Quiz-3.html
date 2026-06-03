@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Life, Handled — What Are You Planning?</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#0d2140;}
+button{transition:transform .1s,opacity .15s;cursor:pointer;}
+button:active{transform:scale(0.98);opacity:0.92;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(160deg,#081428 0%,#0d2140 50%,#1a1030 100%);position:relative;overflow:hidden;}
+.glow-gold{position:absolute;top:-100px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,43,0.18) 0%,transparent 65%);pointer-events:none;}
+.glow-berry{position:absolute;bottom:-80px;left:-60px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(156,53,103,0.14) 0%,transparent 65%);pointer-events:none;}
+.hero-grid{max-width:1040px;margin:0 auto;padding:64px 28px 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:48px;align-items:center;position:relative;z-index:2;}
+.eyebrow-pill{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:7px 14px;border-radius:30px;background:rgba(201,151,43,0.15);border:1px solid rgba(201,151,43,0.3);}
+.eyebrow-pill .star{font-size:14px;}
+.eyebrow-pill span{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e0b554;}
+h1{font-family:Georgia,'Times New Roman',serif;font-weight:700;font-size:clamp(2.2rem,5vw,3.6rem);color:#fff;line-height:1.1;margin-bottom:20px;letter-spacing:-0.5px;}
+h1 em{font-style:italic;color:#e0b554;}
+.hero-lead{font-size:17px;line-height:1.7;color:#ccd4d8;margin-bottom:10px;}
+.hero-lead strong{color:#fff;font-weight:600;}
+.hero-sub{font-size:15px;line-height:1.65;color:#8fa0b8;margin-bottom:30px;}
+.hero-sub strong{color:#e0b554;}
+.btn-primary{background:linear-gradient(135deg,#9c3567,#7a2852);color:#fff;border:none;border-radius:50px;padding:14px 28px;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(156,53,103,0.4);}
+.hero-note{font-size:12px;color:#6f82a0;margin-top:14px;}
+.phone-center{display:flex;justify-content:center;}
+
+/* ── PHONE MOCKUP ── */
+.phone{width:200px;border-radius:32px;background:#0d2140;border:5px solid #1e3566;flex-shrink:0;box-shadow:0 24px 60px rgba(13,33,64,0.28);position:relative;overflow:hidden;}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:64px;height:18px;background:#081428;border-radius:0 0 12px 12px;z-index:10;}
+.phone-screen{background:#fffdf9;padding:28px 12px 16px;min-height:380px;}
+.phone-brand{font-family:serif;font-size:9px;color:#c9972b;text-align:center;font-weight:600;letter-spacing:0.8px;margin-bottom:2px;}
+.phone-title{font-family:serif;font-size:12px;font-weight:700;color:#1e2d3a;text-align:center;margin-bottom:10px;line-height:1.2;}
+.phone-kpi{background:#fff;border-radius:8px;padding:7px 9px;margin-bottom:6px;border:1px solid #ede4d8;display:flex;justify-content:space-between;align-items:center;}
+.phone-kpi .kk{font-size:8px;color:#9a8e84;font-weight:600;}
+.phone-kpi .kv{font-size:10px;font-weight:700;}
+.phone-progress-card{background:#fff;border-radius:8px;padding:8px 9px;margin-bottom:8px;border:1px solid #ede4d8;}
+.phone-progress-head{display:flex;justify-content:space-between;margin-bottom:4px;}
+.phone-progress-head span{font-size:8px;color:#9a8e84;font-weight:600;}
+.phone-progress-head .pv{color:#c9972b;}
+.phone-track{height:5px;background:#ede4d8;border-radius:3px;overflow:hidden;}
+.phone-fill{width:73%;height:100%;background:linear-gradient(90deg,#9c3567,#c9972b);border-radius:3px;}
+.phone-next{background:#fff;border-radius:8px;padding:8px 9px;border:1px solid #ede4d8;}
+.phone-next-label{font-size:8px;color:#9a8e84;font-weight:600;margin-bottom:5px;}
+.phone-next-item{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+.phone-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;background:#e0b554;border:1.5px solid #c9972b;}
+.phone-next-item span{font-size:9px;color:#3a3228;}
+.phone-bar{height:3px;background:rgba(255,255,255,0.2);border-radius:2px;width:56px;margin:4px auto 8px;}
+
+/* ── PROOF STRIP ── */
+.proof{background:#fefaf2;border-top:2px solid #c9972b;border-bottom:2px solid #c9972b;padding:14px 22px;}
+.proof-inner{max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px;justify-content:center;}
+.proof-item{font-size:13px;font-weight:500;color:#1e2d3a;display:flex;align-items:center;gap:7px;}
+.proof-item .check{color:#c9972b;font-size:16px;}
+
+/* ── QUIZ SECTION ── */
+.quiz-section{background:#faf7f0;padding:64px 22px 80px;}
+.quiz-inner{max-width:540px;margin:0 auto;}
+.quiz-hed{text-align:center;margin-bottom:32px;}
+h2{font-family:Georgia,serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);color:#1e2d3a;line-height:1.15;margin-bottom:10px;}
+h2 em{font-style:italic;color:#9c3567;}
+.quiz-sub{color:#9a8e84;font-size:15px;line-height:1.6;}
+.qcard{background:#fff;border-radius:22px;padding:28px 24px;box-shadow:0 16px 50px rgba(13,33,64,0.12);}
+
+/* Progress */
+.progress{display:flex;gap:6px;margin-bottom:22px;}
+.seg{flex:1;height:5px;border-radius:4px;background:#ede4d8;transition:background .3s;}
+.seg.on{background:#c9972b;}
+
+/* Question */
+.q-text{font-family:Georgia,serif;font-weight:700;font-size:21px;color:#1e2d3a;margin-bottom:18px;line-height:1.25;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{text-align:left;background:#fff;border:2px solid #ede4d8;border-radius:14px;padding:13px 16px;font-size:15px;font-weight:500;color:#1e2d3a;cursor:pointer;display:flex;align-items:center;gap:11px;font-family:'DM Sans',sans-serif;width:100%;transition:border-color .15s,background .15s;}
+.opt:hover{border-color:#c9972b;background:#fdf3dc;}
+.opt .em{font-size:20px;}
+
+/* Email gate */
+.gate-badge{display:inline-block;background:#9c3567;color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px;}
+.gate-head{font-family:Georgia,serif;font-weight:700;font-size:23px;color:#1e2d3a;margin-bottom:8px;line-height:1.2;}
+.gate-head em{font-style:italic;color:#9c3567;}
+.gate-sub{color:#9a8e84;font-size:14px;margin-bottom:20px;line-height:1.55;}
+.field{margin-bottom:13px;}
+.field label{display:block;font-size:13px;font-weight:600;color:#1e2d3a;margin-bottom:5px;}
+.field input{width:100%;font-family:'DM Sans',sans-serif;font-size:16px;padding:12px 14px;border:2px solid #ede4d8;border-radius:12px;color:#1e2d3a;outline:none;}
+.field input:focus{border-color:#c9972b;}
+.btn-gold{display:block;width:100%;background:linear-gradient(135deg,#c9972b,#e0b554);color:#081428;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;margin-top:12px;}
+.err{color:#b3382e;font-size:13px;margin-top:8px;display:none;}
+.privacy{font-size:12px;color:#9a8e84;margin-top:9px;line-height:1.5;}
+
+/* Result */
+.result-badge{display:inline-flex;align-items:center;gap:7px;background:#fce8f2;border:1px solid #9c3567;border-radius:20px;padding:5px 14px;margin-bottom:14px;}
+.result-badge .rem{font-size:14px;}
+.result-badge span{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9c3567;}
+.result-head{font-family:Georgia,serif;font-weight:700;font-size:26px;color:#1e2d3a;margin-bottom:8px;line-height:1.1;}
+.result-sub{color:#3a3228;font-size:15px;line-height:1.6;margin-bottom:14px;}
+.product-card{background:#fefaf2;border:2px solid #c9972b;border-radius:18px;padding:18px;margin-bottom:14px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
+.product-info{flex:1;min-width:160px;}
+.product-name{font-family:Georgia,serif;font-weight:700;font-size:19px;color:#1e2d3a;margin-bottom:4px;font-style:italic;}
+.product-desc{font-size:12px;color:#9a8e84;line-height:1.6;margin-bottom:12px;}
+.product-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.product-tag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:#fff;color:#9c3567;border:1px solid #9c3567;}
+.product-price{font-family:Georgia,serif;font-size:28px;font-weight:700;color:#9c3567;margin-bottom:4px;}
+.product-price-note{font-size:11px;color:#9a8e84;margin-bottom:12px;}
+.btn-berry{display:block;width:100%;background:linear-gradient(135deg,#9c3567,#7a2852);color:#fff;border:none;border-radius:12px;padding:13px 16px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;}
+.bundle{background:#fdf3dc;border:1px dashed #c9972b;border-radius:14px;padding:16px;}
+.bundle-head{font-family:Georgia,serif;font-size:17px;font-weight:700;color:#1e2d3a;margin-bottom:5px;}
+.bundle-body{font-size:13px;color:#3a3228;line-height:1.5;margin-bottom:12px;}
+.bundle-body em{font-style:italic;}
+.btn-navy{display:block;width:100%;background:#0d2140;color:#fff;border:none;border-radius:12px;padding:13px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;}
+.result-note{text-align:center;color:#9a8e84;font-size:12px;margin-top:14px;}
+
+/* Spinner */
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.hidden{display:none;}
+
+/* Footer */
+footer{background:#081428;padding:26px 22px;text-align:center;border-top:3px solid #c9972b;}
+footer .flogo{font-family:Georgia,serif;font-size:15px;color:#e0b554;font-weight:700;margin-bottom:6px;font-style:italic;}
+footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="glow-gold"></div>
+  <div class="glow-berry"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow-pill">
+        <span class="star">✦</span>
+        <span>Your Life, Handled</span>
+      </div>
+      <h1><em>Your life,</em><br>handled.</h1>
+      <p class="hero-lead">The birthday. The trip. Father's Day. The holiday dinner. <strong>You're the one who plans all of it.</strong></p>
+      <p class="hero-sub">We made one simple place to put it — the checklist, the guests, the budget, all of it. So you can stop carrying it in your head and actually get it done. <strong>$9. Yours to keep.</strong></p>
+      <button class="btn-primary" onclick="document.getElementById('qs').scrollIntoView({behavior:'smooth'})">
+        <span>What are you planning?</span>
+        <span style="font-size:18px">↓</span>
+      </button>
+      <p class="hero-note">Takes 20 seconds · no account needed</p>
+    </div>
+    <!-- Phone mockup (birthday dashboard) -->
+    <div class="phone-center">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <p class="phone-brand">✦ Your Life, Handled</p>
+          <p class="phone-title">Mia's 7th Birthday</p>
+          <div class="phone-kpi"><span class="kk">Guests confirmed</span><span class="kv" style="color:#9c3567">18 / 24</span></div>
+          <div class="phone-kpi"><span class="kk">Checklist</span><span class="kv" style="color:#c9972b">73%</span></div>
+          <div class="phone-kpi"><span class="kk">Budget spent</span><span class="kv" style="color:#2d7a55">$284 / $400</span></div>
+          <div class="phone-progress-card">
+            <div class="phone-progress-head"><span>Readiness</span><span class="pv">73%</span></div>
+            <div class="phone-track"><div class="phone-fill"></div></div>
+          </div>
+          <div class="phone-next">
+            <p class="phone-next-label">Next up</p>
+            <div class="phone-next-item"><div class="phone-dot"></div><span>Order the cake</span></div>
+            <div class="phone-next-item"><div class="phone-dot"></div><span>Buy party favours</span></div>
+            <div class="phone-next-item"><div class="phone-dot"></div><span>Set up the space</span></div>
+          </div>
+        </div>
+        <div class="phone-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof">
+  <div class="proof-inner">
+    <span class="proof-item"><span class="check">✓</span>No app, no login</span>
+    <span class="proof-item"><span class="check">✓</span>Works on any device</span>
+    <span class="proof-item"><span class="check">✓</span>Saves automatically</span>
+    <span class="proof-item"><span class="check">✓</span>Yours to reuse every year</span>
+    <span class="proof-item"><span class="check">✓</span>$9 · instant download</span>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="qs">
+  <div class="quiz-inner">
+    <div class="quiz-hed">
+      <h2>What are you <em>planning?</em></h2>
+      <p class="quiz-sub">Tell me what's coming up and I'll match you with the right planner — yours instantly, for $9.</p>
+    </div>
+    <div class="qcard">
+
+      <!-- QUESTIONS -->
+      <div id="s-q">
+        <div class="progress" id="prog"></div>
+        <p class="q-text" id="q-text"></p>
+        <div class="opts" id="q-opts"></div>
+      </div>
+
+      <!-- EMAIL GATE -->
+      <div id="s-email" class="hidden">
+        <div class="gate-badge">Your match is ready</div>
+        <p class="gate-head">Where should I <em>send it?</em></p>
+        <p class="gate-sub">Pop in your details and I'll reveal your match — plus send you a copy for whenever you need it.</p>
+        <div class="field"><label>First name</label><input type="text" id="f-name" placeholder="Your first name" autocomplete="given-name"></div>
+        <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="you@email.com" autocomplete="email"></div>
+        <button class="btn-gold" id="reveal-btn" onclick="submitEmail()">Reveal my match →</button>
+        <p class="err" id="email-err">Please enter your first name and a valid email.</p>
+        <p class="privacy">No spam. Just your match and the occasional helpful thing. Unsubscribe anytime.</p>
+      </div>
+
+      <!-- RESULT -->
+      <div id="s-result" class="hidden">
+        <div class="result-badge"><span class="rem" id="r-emoji"></span><span id="r-badge"></span></div>
+        <p class="result-head" id="r-head"></p>
+        <p class="result-sub" id="r-sub"></p>
+        <div class="product-card">
+          <!-- phone mockup (matched product) -->
+          <div class="phone" style="width:180px" id="result-phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen" style="padding:26px 10px 14px;min-height:360px">
+              <p class="phone-brand">✦ Your Life, Handled</p>
+              <p class="phone-title" id="rp-title"></p>
+              <div id="rp-kpis"></div>
+              <div class="phone-progress-card">
+                <div class="phone-progress-head"><span>Readiness</span><span class="pv" id="rp-pct"></span></div>
+                <div class="phone-track"><div class="phone-fill" id="rp-fill"></div></div>
+              </div>
+              <div class="phone-next">
+                <p class="phone-next-label">Next up</p>
+                <div id="rp-next"></div>
+              </div>
+            </div>
+            <div class="phone-bar"></div>
+          </div>
+          <div class="product-info">
+            <p class="product-name" id="r-name"></p>
+            <p class="product-desc" id="r-desc"></p>
+            <div class="product-tags">
+              <span class="product-tag">On your phone</span>
+              <span class="product-tag">Works offline</span>
+              <span class="product-tag">Saves as you go</span>
+              <span class="product-tag">Reusable every year</span>
+            </div>
+            <p class="product-price">$9</p>
+            <p class="product-price-note">instant download · yours forever</p>
+            <a class="btn-berry" id="r-buy" href="#" target="_blank" rel="noopener">Get it for $9 →</a>
+          </div>
+        </div>
+        <div class="bundle">
+          <p class="bundle-head">More things coming up this year?</p>
+          <p class="bundle-body">Get the whole <em>Your Life, Handled</em> Collection — your birthday, your trip, your Father's Day, all of it handled. One price, all year.</p>
+          <a class="btn-navy" id="r-bundle" href="#" target="_blank" rel="noopener">See the full collection →</a>
+        </div>
+        <p class="result-note">Check your inbox — your match is on its way too.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="flogo">Your Life, Handled</p>
+  <p>by Bren Dee · a Faceless Digital Auntie brand<br>Personal-use license · not for resale or redistribution</p>
+</footer>
+
+<script>
+/* ── CONFIGURE ──────────────────────────────────────────────── */
+const FUNCTION_URL = "https://ylh-quiz.netlify.app/.netlify/functions/subscribe";
+const LINKS = {
+  birthday:   "https://shop.beacons.ai/facelessdigitalauntie/3aa9cf96-6bdd-4b28-89b6-924807806478",
+  fathersday: "https://shop.beacons.ai/facelessdigitalauntie/84f72236-5a40-4973-a3e2-dac3043b86ca",
+  trip:       "https://shop.beacons.ai/facelessdigitalauntie/63dc8dfd-0ab2-4603-9003-73e86d2fbde1",
+  bundle:     "https://shop.beacons.ai/facelessdigitalauntie/17e2c7ba-8e08-4a03-9576-1b5d850edcd1"
+};
+/* ────────────────────────────────────────────────────────────── */
+
+const QUESTIONS = [
+  { q:"What are you trying to get sorted?", opts:[
+    {em:"\uD83C\uDF88", label:"A birthday party",       match:"birthday"},
+    {em:"\uD83C\uDF81", label:"Father's Day",            match:"fathersday"},
+    {em:"\uD83D\uDE97", label:"A trip this summer",      match:"trip"},
+    {em:"\uD83C\uDF2A\uFE0F",label:"Honestly, all of it",match:"all"},
+  ]},
+  { q:"When is it?", opts:[
+    {em:"\u23F0", label:"This month \u2014 it's close"},
+    {em:"\u2600\uFE0F", label:"This summer"},
+    {em:"\uD83D\uDDD3\uFE0F", label:"Later, just thinking ahead"},
+  ]},
+  { q:"What feels most out of control right now?", opts:[
+    {em:"\uD83D\uDCB0", label:"The budget"},
+    {em:"\uD83E\uDDE0", label:"Keeping track of everything"},
+    {em:"\uD83D\uDCCB", label:"The guest list & logistics"},
+    {em:"\uD83D\uDE05", label:"All of it, honestly"},
+  ]}
+];
+
+const PRODUCTS = {
+  birthday:{
+    badge:"Birthday Party, Handled", emoji:"\uD83C\uDF88",
+    name:"Your Birthday Party, Handled",
+    head:"Your birthday party \u2014 handled.",
+    sub:"No more sticky notes, no more tabs open, no more carrying it all in your head. It's all in here.",
+    desc:"Guest list & RSVPs \u00b7 Checklist \u00b7 Food & cake \u00b7 Shopping list \u00b7 Budget dashboard",
+    mockupTitle:"Mia's 7th Birthday",
+    mockupPct:"73%", mockupFill:"73%",
+    mockupItems:[
+      {label:"Guests confirmed", val:"18 / 24", color:"#9c3567"},
+      {label:"Checklist",        val:"73%",     color:"#c9972b"},
+      {label:"Budget spent",     val:"$284 / $400", color:"#2d7a55"},
+    ],
+    mockupNext:["Order the cake","Buy party favours","Set up the space"],
+    link:"birthday"
+  },
+  fathersday:{
+    badge:"Father's Day, Handled", emoji:"\uD83C\uDF81",
+    name:"Your Father's Day, Handled",
+    head:"Father's Day \u2014 handled.",
+    sub:"No more last-minute scrambling. The guests, the food, the budget \u2014 all in one place so you can actually enjoy it.",
+    desc:"Checklist \u00b7 Guests \u00b7 Menu & drinks \u00b7 Shopping list \u00b7 Budget dashboard",
+    mockupTitle:"Dad's Father's Day BBQ",
+    mockupPct:"60%", mockupFill:"60%",
+    mockupItems:[
+      {label:"Guests confirmed", val:"14 / 20", color:"#9c3567"},
+      {label:"Checklist",        val:"60%",     color:"#c9972b"},
+      {label:"Budget spent",     val:"$186 / $300", color:"#2d7a55"},
+    ],
+    mockupNext:["Confirm the menu","Chill the drinks","Set up the garden"],
+    link:"fathersday"
+  },
+  trip:{
+    badge:"The Trip, Handled", emoji:"\uD83D\uDE97",
+    name:"Your Trip, Handled",
+    head:"Your trip \u2014 handled.",
+    sub:"No more tabs, no more notes app, no more 3am 'did I book the hotel' spiral. It's all in here.",
+    desc:"To-dos \u00b7 Route & stops \u00b7 Bookings \u00b7 Packing list \u00b7 Budget dashboard",
+    mockupTitle:"Summer Road Trip 2026",
+    mockupPct:"55%", mockupFill:"55%",
+    mockupItems:[
+      {label:"Stops booked", val:"2 / 3",      color:"#9c3567"},
+      {label:"Packing",      val:"55%",        color:"#c9972b"},
+      {label:"Budget spent", val:"$420 / $900",color:"#2d7a55"},
+    ],
+    mockupNext:["Book the Michigan stay","Renew passports","Build the playlist"],
+    link:"trip"
+  }
+};
+
+let step=0, answers=[], matchKey="birthday";
+
+function show(id){
+  ["s-q","s-email","s-result"].forEach(s=>{
+    document.getElementById(s).classList.toggle("hidden",s!==id);
+  });
+  document.getElementById("qs").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function renderQ(){
+  const bar=document.getElementById("prog"); bar.innerHTML="";
+  QUESTIONS.forEach((_,i)=>{
+    const s=document.createElement("div"); s.className="seg"+(i<=step?" on":""); bar.appendChild(s);
+  });
+  document.getElementById("q-text").textContent=QUESTIONS[step].q;
+  const wrap=document.getElementById("q-opts"); wrap.innerHTML="";
+  QUESTIONS[step].opts.forEach(o=>{
+    const b=document.createElement("button"); b.className="opt";
+    b.innerHTML='<span class="em">'+o.em+'<\/span>'+o.label;
+    b.onclick=()=>{ answers[step]=o.match||o.label; advance(); };
+    wrap.appendChild(b);
+  });
+}
+
+function advance(){
+  if(step<QUESTIONS.length-1){ step++; renderQ(); }
+  else{
+    const f=answers[0];
+    matchKey=f==="fathersday"?"fathersday":f==="trip"?"trip":"birthday";
+    show("s-email");
+  }
+}
+
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+
+function submitEmail(){
+  const name=document.getElementById("f-name").value.trim();
+  const email=document.getElementById("f-email").value.trim();
+  const err=document.getElementById("email-err");
+  if(!name||!validEmail(email)){ err.style.display="block"; return; }
+  err.style.display="none";
+  const btn=document.getElementById("reveal-btn");
+  btn.innerHTML='<span class="spinner"><\/span>One moment\u2026'; btn.disabled=true;
+  const inPreview=FUNCTION_URL.indexOf("PASTE_")>-1;
+  if(inPreview){ setTimeout(()=>showResult(name),600); return; }
+  fetch(FUNCTION_URL,{
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email,first_name:name,matched_planner:matchKey})
+  }).then(()=>showResult(name)).catch(()=>showResult(name));
+}
+
+function showResult(name){
+  const p=PRODUCTS[matchKey];
+  // badge
+  document.getElementById("r-emoji").textContent=p.emoji;
+  document.getElementById("r-badge").textContent=p.badge;
+  // copy
+  document.getElementById("r-head").textContent=p.head;
+  document.getElementById("r-sub").textContent=p.sub;
+  document.getElementById("r-name").textContent=p.name;
+  document.getElementById("r-desc").textContent=p.desc;
+  // buy buttons
+  document.getElementById("r-buy").href=LINKS[p.link]||"#";
+  document.getElementById("r-bundle").href=LINKS.bundle||"#";
+  // result phone mockup
+  document.getElementById("rp-title").textContent=p.mockupTitle;
+  document.getElementById("rp-pct").textContent=p.mockupPct;
+  document.getElementById("rp-fill").style.width=p.mockupFill;
+  const kpis=document.getElementById("rp-kpis"); kpis.innerHTML="";
+  p.mockupItems.forEach(k=>{
+    const d=document.createElement("div"); d.className="phone-kpi";
+    d.innerHTML='<span class="kk">'+k.label+'<\/span><span class="kv" style="color:'+k.color+'">'+k.val+'<\/span>';
+    kpis.appendChild(d);
+  });
+  const next=document.getElementById("rp-next"); next.innerHTML="";
+  p.mockupNext.forEach(t=>{
+    const d=document.createElement("div"); d.className="phone-next-item";
+    d.innerHTML='<div class="phone-dot"><\/div><span>'+t+'<\/span>';
+    next.appendChild(d);
+  });
+  show("s-result");
+}
+
+// Init
+renderQ();
+</script>
+</body>
+</html>
