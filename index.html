@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Life, Handled — What Are You Planning?</title>
+<title>Your Life, Handled — Find What You Need in 20 Seconds</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -96,17 +96,21 @@ h2 em{font-style:italic;color:#9c3567;}
 .result-badge{display:inline-flex;align-items:center;gap:7px;background:#fce8f2;border:1px solid #9c3567;border-radius:20px;padding:5px 14px;margin-bottom:14px;}
 .result-badge .rem{font-size:14px;}
 .result-badge span{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9c3567;}
+.result-kicker{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#c9972b;margin-bottom:8px;}
 .result-head{font-family:Georgia,serif;font-weight:700;font-size:26px;color:#1e2d3a;margin-bottom:8px;line-height:1.1;}
 .result-sub{color:#3a3228;font-size:15px;line-height:1.6;margin-bottom:14px;}
 .product-card{background:#fefaf2;border:2px solid #c9972b;border-radius:18px;padding:18px;margin-bottom:14px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
 .product-info{flex:1;min-width:160px;}
-.product-name{font-family:Georgia,serif;font-weight:700;font-size:19px;color:#1e2d3a;margin-bottom:4px;font-style:italic;}
-.product-desc{font-size:12px;color:#9a8e84;line-height:1.6;margin-bottom:12px;}
+.product-name{font-family:Georgia,serif;font-weight:700;font-size:19px;color:#1e2d3a;margin-bottom:8px;font-style:italic;}
+.product-features{list-style:none;margin:0 0 12px;padding:0;}
+.product-features li{display:flex;align-items:flex-start;gap:7px;font-size:13px;color:#3a3228;line-height:1.5;margin-bottom:6px;}
+.product-features li .fc{color:#2d7a55;font-weight:700;flex-shrink:0;}
 .product-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
 .product-tag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:#fff;color:#9c3567;border:1px solid #9c3567;}
 .product-price{font-family:Georgia,serif;font-size:28px;font-weight:700;color:#9c3567;margin-bottom:4px;}
 .product-price-note{font-size:11px;color:#9a8e84;margin-bottom:12px;}
 .btn-berry{display:block;width:100%;background:linear-gradient(135deg,#9c3567,#7a2852);color:#fff;border:none;border-radius:12px;padding:13px 16px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;}
+.product-reassure{font-size:12px;color:#9a8e84;text-align:center;margin-top:10px;line-height:1.5;}
 .bundle{background:#fdf3dc;border:1px dashed #c9972b;border-radius:14px;padding:16px;}
 .bundle-head{font-family:Georgia,serif;font-size:17px;font-weight:700;color:#1e2d3a;margin-bottom:5px;}
 .bundle-body{font-size:13px;color:#3a3228;line-height:1.5;margin-bottom:12px;}
@@ -138,10 +142,10 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
         <span>Your Life, Handled</span>
       </div>
       <h1><em>Your life,</em><br>handled.</h1>
-      <p class="hero-lead">The birthday. The trip. The watch party. <strong>You're the one who plans all of it.</strong></p>
-      <p class="hero-sub">We made one simple place to put it — the checklist, the guests, the budget, all of it. So you can stop carrying it in your head and actually get it done. <strong>From $9. Yours to keep.</strong></p>
+      <p class="hero-lead">The birthday. The trip. The watch party. <strong>You've got this — let's make this one actually easy.</strong></p>
+      <p class="hero-sub">Answer three quick questions and I'll show you the exact planner built for it — the checklist, the guests, the budget, all in one place so you're not tracking it in your head or across six different apps. <strong>From $9. Yours to keep.</strong></p>
       <button class="btn-primary" onclick="document.getElementById('qs').scrollIntoView({behavior:'smooth'})">
-        <span>What are you planning?</span>
+        <span>Show me what I need</span>
         <span style="font-size:18px">↓</span>
       </button>
       <p class="hero-note">Takes 20 seconds · no account needed</p>
@@ -188,8 +192,8 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
 <section class="quiz-section" id="qs">
   <div class="quiz-inner">
     <div class="quiz-hed">
-      <h2>What are you <em>planning?</em></h2>
-      <p class="quiz-sub">Tell me what's coming up and I'll match you with the right planner — yours instantly.</p>
+      <h2>What event do you <em>need handled?</em></h2>
+      <p class="quiz-sub">Three quick questions. I'll show you exactly what gets it handled — so it's off your plate, not stuck in your head.</p>
     </div>
     <div class="qcard">
 
@@ -202,19 +206,20 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
 
       <!-- EMAIL GATE -->
       <div id="s-email" class="hidden">
-        <div class="gate-badge">Your match is ready</div>
+        <div class="gate-badge">It's handled</div>
         <p class="gate-head">Where should I <em>send it?</em></p>
-        <p class="gate-sub">Pop in your details and I'll reveal your match — plus send you a copy for whenever you need it.</p>
+        <p class="gate-sub">Pop in your details and I'll show you exactly what you need — plus send a copy to your inbox so it's there whenever you need it.</p>
         <div class="field"><label>First name</label><input type="text" id="f-name" placeholder="Your first name" autocomplete="given-name"></div>
         <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="you@email.com" autocomplete="email"></div>
-        <button class="btn-gold" id="reveal-btn" onclick="submitEmail()">Reveal my match →</button>
+        <button class="btn-gold" id="reveal-btn" onclick="submitEmail()">Get it handled →</button>
         <p class="err" id="email-err">Please enter your first name and a valid email.</p>
-        <p class="privacy">No spam. Just your match and the occasional helpful thing. Unsubscribe anytime.</p>
+        <p class="privacy">No spam. Just your planner and the occasional helpful thing. Unsubscribe anytime.</p>
       </div>
 
       <!-- RESULT -->
       <div id="s-result" class="hidden">
-        <div class="result-badge"><span class="rem" id="r-emoji"></span><span id="r-badge"></span></div>
+        <div class="result-badge" id="r-badge-wrap"><span class="rem" id="r-emoji"></span><span id="r-badge"></span></div>
+        <p class="result-kicker">Here's exactly what gets it handled</p>
         <p class="result-head" id="r-head"></p>
         <p class="result-sub" id="r-sub"></p>
         <div class="product-card">
@@ -240,16 +245,17 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
           <img id="result-image" style="width:180px;border-radius:16px;display:none;box-shadow:0 12px 30px rgba(13,33,64,0.2);" alt="">
           <div class="product-info">
             <p class="product-name" id="r-name"></p>
-            <p class="product-desc" id="r-desc"></p>
-            <div class="product-tags">
+            <ul class="product-features" id="r-features"></ul>
+            <div class="product-tags" id="r-tags">
               <span class="product-tag">On your phone</span>
               <span class="product-tag">Works offline</span>
               <span class="product-tag">Saves as you go</span>
               <span class="product-tag">Reusable every year</span>
             </div>
             <p class="product-price" id="r-price">$9</p>
-            <p class="product-price-note">instant download · yours forever</p>
-            <a class="btn-berry" id="r-buy" href="#" target="_blank" rel="noopener">Get it for $9 →</a>
+            <p class="product-price-note">Instant download · yours forever · no account needed</p>
+            <a class="btn-berry" id="r-buy" href="#" target="_blank" rel="noopener">Get it handled — $9 →</a>
+            <p class="product-reassure">💛 Set up in under a minute. If it's not the right fit, just reply to the email — no hoops.</p>
           </div>
         </div>
         <div class="bundle">
@@ -257,7 +263,7 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
           <p class="bundle-body" id="x-body">Get the whole <em>Your Life, Handled</em> Collection — your birthday, your trip, your watch party, all of it handled. One price, all year.</p>
           <a class="btn-navy" id="r-bundle" href="#" target="_blank" rel="noopener">See the full collection →</a>
         </div>
-        <p class="result-note">Check your inbox — your match is on its way too.</p>
+        <p class="result-note">Check your inbox — it's headed there too.</p>
       </div>
 
     </div>
@@ -328,6 +334,7 @@ const PRODUCTS_CONFIG = [
     desc: 'Guest list & RSVPs \u00b7 Checklist \u00b7 Food & cake \u00b7 Shopping list \u00b7 Budget dashboard',
     price: '9',
     link: 'https://shop.beacons.ai/facelessdigitalauntie/3aa9cf96-6bdd-4b28-89b6-924807806478',
+    accent: '#9c3567', accentDark: '#7a2852',
     mockupTitle: "Mia's 7th Birthday", mockupPct: '73%', mockupFill: '73%',
     mockupItems: [
       {label:'Guests confirmed', val:'18 / 24', color:'#9c3567'},
@@ -355,7 +362,7 @@ const PRODUCTS_CONFIG = [
   {
     key: 'trip',
     emoji: '\uD83D\uDE97',
-    qLabel: 'A trip this summer',
+    qLabel: 'A trip',
     badge: 'The Trip, Handled',
     name: 'Your Trip, Handled',
     head: "You're the one who already has this handled.",
@@ -363,13 +370,14 @@ const PRODUCTS_CONFIG = [
     desc: 'To-dos \u00b7 Route & stops \u00b7 Bookings \u00b7 Packing list \u00b7 Budget dashboard',
     price: '9',
     link: 'https://shop.beacons.ai/facelessdigitalauntie/63dc8dfd-0ab2-4603-9003-73e86d2fbde1',
-    mockupTitle: 'Summer Road Trip 2026', mockupPct: '55%', mockupFill: '55%',
+    accent: '#b3382e', accentDark: '#8a2a22',
+    mockupTitle: 'Weekend Getaway', mockupPct: '55%', mockupFill: '55%',
     mockupItems: [
-      {label:'Stops booked', val:'2 / 3',      color:'#9c3567'},
+      {label:'Stops booked', val:'2 / 3',      color:'#b3382e'},
       {label:'Packing',      val:'55%',        color:'#c9972b'},
       {label:'Budget spent', val:'$420 / $900',color:'#2d7a55'},
     ],
-    mockupNext: ['Book the Michigan stay','Renew passports','Build the playlist'],
+    mockupNext: ['Book the hotel','Renew passports','Build the playlist'],
     crossSell: {
       head: 'More things coming up this year?',
       body: 'Get the whole <em>Your Life, Handled</em> Collection \u2014 your birthday, your trip, your watch party, all of it handled. One price, all year.',
@@ -398,6 +406,7 @@ const PRODUCTS_CONFIG = [
     desc: 'Every 2026 match \u00b7 Guest list \u00b7 Menu & drinks \u00b7 Decor \u00b7 Budget dashboard \u00b7 Score tracker',
     price: '22',
     link: 'https://shop.beacons.ai/facelessdigitalauntie/8a45b084-ab6b-412c-9f8a-71fdcc2b01c9',
+    accent: '#2d6a4f', accentDark: '#1f4d38',
     mockupTitle: 'World Cup Watch Party', mockupPct: '80%', mockupFill: '80%',
     mockupItems: [
       {label:'Guests confirmed', val:'12 / 16', color:'#9c3567'},
@@ -471,7 +480,7 @@ LINKS.bundle         = 'https://shop.beacons.ai/facelessdigitalauntie/17e2c7ba-8
 // PRODUCTS — built from PRODUCTS_CONFIG, keyed by product key
 const PRODUCTS = Object.fromEntries(PRODUCTS_CONFIG.map(p => [p.key, {
   badge: p.badge, emoji: p.emoji, name: p.name, head: p.head, sub: p.sub, desc: p.desc,
-  price: p.price, crossSell: p.crossSell, resultImage: p.resultImage || null,
+  price: p.price, crossSell: p.crossSell, resultImage: p.resultImage || null, accent: p.accent || '#9c3567', accentDark: p.accentDark || '#7a2852',
   mockupTitle: p.mockupTitle, mockupPct: p.mockupPct, mockupFill: p.mockupFill,
   mockupItems: p.mockupItems, mockupNext: p.mockupNext, link: p.key
 }]));
@@ -567,7 +576,7 @@ function submitEmail(){
     '<p style="margin:0 0 20px;font-size:14px;color:#3a3228;line-height:1.65;">'+d.pain+'</p>'+
     '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fdf3dc;border:2px solid #c9972b;border-radius:12px;margin-bottom:20px;">'+
     '<tr><td style="padding:18px 20px;">'+
-    '<p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c9972b;">YOUR MATCH</p>'+
+    '<p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c9972b;">IT\'S HANDLED</p>'+
     '<p style="margin:0 0 8px;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#0d2140;">'+product_name+'</p>'+
     '<p style="margin:0;font-size:13px;color:#3a3228;line-height:1.6;">'+d.why+'</p>'+
     '</td></tr></table>'+
@@ -620,9 +629,22 @@ function showResult(name){
   document.getElementById("r-head").textContent=p.head;
   document.getElementById("r-sub").textContent=p.sub;
   document.getElementById("r-name").textContent=p.name;
-  document.getElementById("r-desc").textContent=p.desc;
+  document.getElementById("r-name").style.color=p.accent;
+  document.getElementById("r-badge-wrap").style.borderColor=p.accent;
+  document.getElementById("r-badge").style.color=p.accent;
+  document.querySelectorAll("#r-tags .product-tag").forEach(t=>{
+    t.style.color=p.accent; t.style.borderColor=p.accent;
+  });
+  const featEl = document.getElementById("r-features"); featEl.innerHTML="";
+  p.desc.split(" \u00b7 ").forEach(f=>{
+    const li=document.createElement("li");
+    li.innerHTML='<span class="fc">✓<\/span><span>'+f+'<\/span>';
+    featEl.appendChild(li);
+  });
   document.getElementById("r-price").textContent="$"+p.price;
-  document.getElementById("r-buy").textContent="Get it for $"+p.price+" \u2192";
+  document.getElementById("r-price").style.color=p.accent;
+  document.getElementById("r-buy").textContent="Get it handled — $"+p.price+" \u2192";
+  document.getElementById("r-buy").style.background="linear-gradient(135deg,"+p.accent+","+p.accentDark+")";
   document.getElementById("r-buy").href=LINKS[p.link]||"#";
   document.getElementById("x-head").textContent=p.crossSell.head;
   document.getElementById("x-body").innerHTML=p.crossSell.body;
@@ -643,7 +665,9 @@ function showResult(name){
 
   document.getElementById("rp-title").textContent=p.mockupTitle;
   document.getElementById("rp-pct").textContent=p.mockupPct;
+  document.getElementById("rp-pct").style.color=p.accent;
   document.getElementById("rp-fill").style.width=p.mockupFill;
+  document.getElementById("rp-fill").style.background="linear-gradient(90deg,"+p.accent+",#c9972b)";
   const kpis=document.getElementById("rp-kpis"); kpis.innerHTML="";
   p.mockupItems.forEach(k=>{
     const d=document.createElement("div"); d.className="phone-kpi";
