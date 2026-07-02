@@ -138,8 +138,8 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
         <span>Your Life, Handled</span>
       </div>
       <h1><em>Your life,</em><br>handled.</h1>
-      <p class="hero-lead">The birthday. The trip. Father's Day. The holiday dinner. <strong>You're the one who plans all of it.</strong></p>
-      <p class="hero-sub">We made one simple place to put it — the checklist, the guests, the budget, all of it. So you can stop carrying it in your head and actually get it done. <strong>$9. Yours to keep.</strong></p>
+      <p class="hero-lead">The birthday. The trip. The watch party. <strong>You're the one who plans all of it.</strong></p>
+      <p class="hero-sub">We made one simple place to put it — the checklist, the guests, the budget, all of it. So you can stop carrying it in your head and actually get it done. <strong>From $9. Yours to keep.</strong></p>
       <button class="btn-primary" onclick="document.getElementById('qs').scrollIntoView({behavior:'smooth'})">
         <span>What are you planning?</span>
         <span style="font-size:18px">↓</span>
@@ -180,7 +180,7 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
     <span class="proof-item"><span class="check">✓</span>Works on any device</span>
     <span class="proof-item"><span class="check">✓</span>Saves automatically</span>
     <span class="proof-item"><span class="check">✓</span>Yours to reuse every year</span>
-    <span class="proof-item"><span class="check">✓</span>$9 · instant download</span>
+    <span class="proof-item"><span class="check">✓</span>From $9 · instant download</span>
   </div>
 </div>
 
@@ -189,7 +189,7 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
   <div class="quiz-inner">
     <div class="quiz-hed">
       <h2>What are you <em>planning?</em></h2>
-      <p class="quiz-sub">Tell me what's coming up and I'll match you with the right planner — yours instantly, for $9.</p>
+      <p class="quiz-sub">Tell me what's coming up and I'll match you with the right planner — yours instantly.</p>
     </div>
     <div class="qcard">
 
@@ -245,14 +245,14 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
               <span class="product-tag">Saves as you go</span>
               <span class="product-tag">Reusable every year</span>
             </div>
-            <p class="product-price">$9</p>
+            <p class="product-price" id="r-price">$9</p>
             <p class="product-price-note">instant download · yours forever</p>
             <a class="btn-berry" id="r-buy" href="#" target="_blank" rel="noopener">Get it for $9 →</a>
           </div>
         </div>
         <div class="bundle">
-          <p class="bundle-head">More things coming up this year?</p>
-          <p class="bundle-body">Get the whole <em>Your Life, Handled</em> Collection — your birthday, your trip, your Father's Day, all of it handled. One price, all year.</p>
+          <p class="bundle-head" id="x-head">More things coming up this year?</p>
+          <p class="bundle-body" id="x-body">Get the whole <em>Your Life, Handled</em> Collection — your birthday, your trip, your watch party, all of it handled. One price, all year.</p>
           <a class="btn-navy" id="r-bundle" href="#" target="_blank" rel="noopener">See the full collection →</a>
         </div>
         <p class="result-note">Check your inbox — your match is on its way too.</p>
@@ -282,18 +282,19 @@ const ADMIN_EMAIL            = "Accomplify.inc@gmail.com";
 const FUNCTION_URL = "https://ylh-quiz.netlify.app/.netlify/functions/subscribe";
 
 const LINKS = {
-  birthday:   "https://shop.beacons.ai/facelessdigitalauntie/3aa9cf96-6bdd-4b28-89b6-924807806478",
-  fathersday: "https://shop.beacons.ai/facelessdigitalauntie/84f72236-5a40-4973-a3e2-dac3043b86ca",
-  trip:       "https://shop.beacons.ai/facelessdigitalauntie/63dc8dfd-0ab2-4603-9003-73e86d2fbde1",
-  bundle:     "https://shop.beacons.ai/facelessdigitalauntie/17e2c7ba-8e08-4a03-9576-1b5d850edcd1"
+  birthday:       "https://shop.beacons.ai/facelessdigitalauntie/3aa9cf96-6bdd-4b28-89b6-924807806478",
+  trip:           "https://shop.beacons.ai/facelessdigitalauntie/63dc8dfd-0ab2-4603-9003-73e86d2fbde1",
+  watchparty:     "https://shop.beacons.ai/facelessdigitalauntie/8a45b084-ab6b-412c-9f8a-71fdcc2b01c9",
+  soccerbirthday: "https://shop.beacons.ai/facelessdigitalauntie/a2b7c68d-72da-49c4-8303-6f1d88a0b1cc",
+  bundle:         "https://shop.beacons.ai/facelessdigitalauntie/17e2c7ba-8e08-4a03-9576-1b5d850edcd1"
 };
 
 const QUESTIONS = [
   { q:"What are you trying to get sorted?", opts:[
-    {em:"\uD83C\uDF88", label:"A birthday party",       match:"birthday"},
-    {em:"\uD83C\uDF81", label:"Father's Day",            match:"fathersday"},
-    {em:"\uD83D\uDE97", label:"A trip this summer",      match:"trip"},
-    {em:"\uD83C\uDF2A\uFE0F",label:"Honestly, all of it",match:"all"},
+    {em:"\uD83C\uDF88", label:"A birthday party",         match:"birthday"},
+    {em:"\u26BD",        label:"A World Cup watch party",  match:"watchparty"},
+    {em:"\uD83D\uDE97", label:"A trip this summer",        match:"trip"},
+    {em:"\uD83C\uDF2A\uFE0F",label:"Honestly, all of it",  match:"all"},
   ]},
   { q:"When is it?", opts:[
     {em:"\u23F0", label:"This month \u2014 it's close"},
@@ -315,6 +316,13 @@ const PRODUCTS = {
     head:"Your birthday party \u2014 handled.",
     sub:"No more sticky notes, no more tabs open, no more carrying it all in your head. It's all in here.",
     desc:"Guest list & RSVPs \u00b7 Checklist \u00b7 Food & cake \u00b7 Shopping list \u00b7 Budget dashboard",
+    price:"9",
+    crossSell:{
+      head:"More things coming up this year?",
+      body:'Get the whole <em>Your Life, Handled</em> Collection \u2014 your birthday, your trip, your watch party, all of it handled. One price, all year.',
+      btnText:"See the full collection \u2192",
+      linkKey:"bundle"
+    },
     mockupTitle:"Mia's 7th Birthday",
     mockupPct:"73%", mockupFill:"73%",
     mockupItems:[
@@ -325,21 +333,28 @@ const PRODUCTS = {
     mockupNext:["Order the cake","Buy party favours","Set up the space"],
     link:"birthday"
   },
-  fathersday:{
-    badge:"Father's Day, Handled", emoji:"\uD83C\uDF81",
-    name:"Your Father's Day, Handled",
-    head:"Father's Day \u2014 handled.",
-    sub:"No more last-minute scrambling. The guests, the food, the budget \u2014 all in one place so you can actually enjoy it.",
-    desc:"Checklist \u00b7 Guests \u00b7 Menu & drinks \u00b7 Shopping list \u00b7 Budget dashboard",
-    mockupTitle:"Dad's Father's Day BBQ",
-    mockupPct:"60%", mockupFill:"60%",
+  watchparty:{
+    badge:"World Cup, Handled", emoji:"\u26BD",
+    name:"Your World Cup Watch Party, Handled",
+    head:"Your watch party \u2014 handled.",
+    sub:"The match is the easy part. Guests, food, drinks, and the score tracker \u2014 all in one place, so hosting feels effortless.",
+    desc:"Every 2026 match \u00b7 Guest list \u00b7 Menu & drinks \u00b7 Decor \u00b7 Budget dashboard \u00b7 Score tracker",
+    price:"22",
+    crossSell:{
+      head:"Hosting a soccer birthday too?",
+      body:"Buy World Cup Handled and get the Soccer Birthday Planner included free \u2014 normally $9 on its own. One purchase, two planners.",
+      btnText:"Claim it free \u2192",
+      linkKey:"soccerbirthday"
+    },
+    mockupTitle:"World Cup Watch Party",
+    mockupPct:"80%", mockupFill:"80%",
     mockupItems:[
-      {label:"Guests confirmed", val:"14 / 20", color:"#9c3567"},
-      {label:"Checklist",        val:"60%",     color:"#c9972b"},
-      {label:"Budget spent",     val:"$186 / $300", color:"#2d7a55"},
+      {label:"Guests confirmed", val:"12 / 16", color:"#9c3567"},
+      {label:"Menu planned",     val:"80%",     color:"#c9972b"},
+      {label:"Budget spent",     val:"$310 / $450", color:"#2d7a55"},
     ],
-    mockupNext:["Confirm the menu","Chill the drinks","Set up the garden"],
-    link:"fathersday"
+    mockupNext:["Confirm final headcount","Order the platters","Set up the second screen"],
+    link:"watchparty"
   },
   trip:{
     badge:"The Trip, Handled", emoji:"\uD83D\uDE97",
@@ -347,6 +362,13 @@ const PRODUCTS = {
     head:"Your trip \u2014 handled.",
     sub:"No more tabs, no more notes app, no more 3am 'did I book the hotel' spiral. It's all in here.",
     desc:"To-dos \u00b7 Route & stops \u00b7 Bookings \u00b7 Packing list \u00b7 Budget dashboard",
+    price:"9",
+    crossSell:{
+      head:"More things coming up this year?",
+      body:'Get the whole <em>Your Life, Handled</em> Collection \u2014 your birthday, your trip, your watch party, all of it handled. One price, all year.',
+      btnText:"See the full collection \u2192",
+      linkKey:"bundle"
+    },
     mockupTitle:"Summer Road Trip 2026",
     mockupPct:"55%", mockupFill:"55%",
     mockupItems:[
@@ -387,7 +409,7 @@ function advance(){
   if(step<QUESTIONS.length-1){ step++; renderQ(); }
   else{
     const f=answers[0];
-    matchKey=f==="fathersday"?"fathersday":f==="trip"?"trip":"birthday";
+    matchKey = f==="watchparty" ? "watchparty" : f==="trip" ? "trip" : "birthday";
     show("s-email");
   }
 }
@@ -405,7 +427,7 @@ function submitEmail(){
 
   const PRODUCT_NAMES={
     birthday:"Your Birthday Party, Handled",
-    fathersday:"Your Father's Day, Handled",
+    watchparty:"Your World Cup Watch Party, Handled",
     trip:"Your Trip, Handled"
   };
   const product_name=PRODUCT_NAMES[matchKey]||"Your Life, Handled";
@@ -414,17 +436,32 @@ function submitEmail(){
     birthday:{
       description:"No more sticky notes or tabs open. The whole celebration in one place.",
       contents:"Guest list &amp; RSVPs &middot; Checklist &middot; Food &amp; cake &middot; Shopping list &middot; Budget dashboard",
-      buy_link:LINKS.birthday
+      buy_link:LINKS.birthday,
+      price:"9",
+      crossHead:"More things coming up this year?",
+      crossBody:"Get all three planners \u2014 birthday, trip, watch party \u2014 for $19.",
+      crossLink:LINKS.bundle,
+      crossBtn:"See the Collection &rarr;"
     },
-    fathersday:{
-      description:"No more last-minute scrambling. The plan, the people, the food, the budget.",
-      contents:"Checklist &middot; Guests &amp; RSVPs &middot; Menu &amp; drinks &middot; Shopping list &middot; Budget dashboard",
-      buy_link:LINKS.fathersday
+    watchparty:{
+      description:"The match is the easy part. Guests, food, drinks, and the score tracker \u2014 all in one place.",
+      contents:"Every 2026 match &middot; Guest list &middot; Menu &amp; drinks &middot; Decor &middot; Budget dashboard &middot; Score tracker",
+      buy_link:LINKS.watchparty,
+      price:"22",
+      crossHead:"Hosting a soccer birthday too?",
+      crossBody:"Buy World Cup Handled and get the Soccer Birthday Planner (normally $9) included free.",
+      crossLink:LINKS.soccerbirthday,
+      crossBtn:"Claim it free &rarr;"
     },
     trip:{
       description:"No more tabs or notes app spirals. The whole journey in one place. Drive or fly.",
       contents:"To-dos &middot; Route &amp; stops &middot; Bookings &middot; Packing list &middot; Budget dashboard",
-      buy_link:LINKS.trip
+      buy_link:LINKS.trip,
+      price:"9",
+      crossHead:"More things coming up this year?",
+      crossBody:"Get all three planners \u2014 birthday, trip, watch party \u2014 for $19.",
+      crossLink:LINKS.bundle,
+      crossBtn:"See the Collection &rarr;"
     }
   };
   const d=PRODUCT_DETAILS[matchKey]||PRODUCT_DETAILS.birthday;
@@ -441,15 +478,15 @@ function submitEmail(){
     '<p style="margin:0 0 8px;font-family:Georgia,serif;font-size:15px;font-weight:700;color:#0d2140;">What\'s inside</p>'+
     '<p style="margin:0 0 20px;font-size:13px;color:#3a3228;">'+d.contents+'</p>'+
     '<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;"><tr><td align="center">'+
-    '<a href="'+d.buy_link+'" style="display:inline-block;background:#9c3567;color:#fff;font-family:Helvetica,sans-serif;font-size:15px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:40px;">Get it for $9 &rarr;</a>'+
+    '<a href="'+d.buy_link+'" style="display:inline-block;background:#9c3567;color:#fff;font-family:Helvetica,sans-serif;font-size:15px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:40px;">Get it for $'+d.price+' &rarr;</a>'+
     '</td></tr></table>'+
     '<p style="margin:0 0 4px;font-size:12px;color:#8a948f;">&#10003; Works on your phone, iPad, or laptop</p>'+
     '<p style="margin:0 0 4px;font-size:12px;color:#8a948f;">&#10003; No app, no login \u2014 saves automatically</p>'+
-    '<p style="margin:0 0 20px;font-size:12px;color:#8a948f;">&#10003; $9 &middot; instant download &middot; yours to reuse every year</p>'+
+    '<p style="margin:0 0 20px;font-size:12px;color:#8a948f;">&#10003; $'+d.price+' &middot; instant download &middot; yours to reuse every year</p>'+
     '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f5f0e8;border-radius:10px;"><tr><td style="padding:16px 18px;">'+
-    '<p style="margin:0 0 4px;font-family:Georgia,serif;font-size:14px;font-weight:700;color:#0d2140;">More things coming up this year?</p>'+
-    '<p style="margin:0 0 10px;font-size:12px;color:#3a3228;">Get all three planners \u2014 birthday, trip, Father\'s Day \u2014 for $19.</p>'+
-    '<a href="'+LINKS.bundle+'" style="display:inline-block;background:#0d2140;color:#fff;font-family:Helvetica,sans-serif;font-size:12px;font-weight:600;text-decoration:none;padding:9px 18px;border-radius:6px;">See the Collection &rarr;</a>'+
+    '<p style="margin:0 0 4px;font-family:Georgia,serif;font-size:14px;font-weight:700;color:#0d2140;">'+d.crossHead+'</p>'+
+    '<p style="margin:0 0 10px;font-size:12px;color:#3a3228;">'+d.crossBody+'</p>'+
+    '<a href="'+d.crossLink+'" style="display:inline-block;background:#0d2140;color:#fff;font-family:Helvetica,sans-serif;font-size:12px;font-weight:600;text-decoration:none;padding:9px 18px;border-radius:6px;">'+d.crossBtn+'</a>'+
     '</td></tr></table>';
 
   // Send lead email via EmailJS directly from browser
@@ -493,9 +530,15 @@ function showResult(name){
   document.getElementById("r-sub").textContent=p.sub;
   document.getElementById("r-name").textContent=p.name;
   document.getElementById("r-desc").textContent=p.desc;
-  // buy buttons
+  // price + buy button (dynamic per product)
+  document.getElementById("r-price").textContent="$"+p.price;
+  document.getElementById("r-buy").textContent="Get it for $"+p.price+" \u2192";
   document.getElementById("r-buy").href=LINKS[p.link]||"#";
-  document.getElementById("r-bundle").href=LINKS.bundle||"#";
+  // cross-sell box (collection upsell, or Soccer Birthday BOGO for World Cup)
+  document.getElementById("x-head").textContent=p.crossSell.head;
+  document.getElementById("x-body").innerHTML=p.crossSell.body;
+  document.getElementById("r-bundle").textContent=p.crossSell.btnText;
+  document.getElementById("r-bundle").href=LINKS[p.crossSell.linkKey]||"#";
   // result phone mockup
   document.getElementById("rp-title").textContent=p.mockupTitle;
   document.getElementById("rp-pct").textContent=p.mockupPct;
