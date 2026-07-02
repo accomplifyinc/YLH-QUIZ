@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Life, Handled — Find What You Need in 20 Seconds</title>
+<meta name="description" content="Answer 3 quick questions — find out exactly what handles it. Takes 20 seconds.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Your Life, Handled — Find What You Need in 20 Seconds">
+<meta property="og:description" content="Answer 3 quick questions — find out exactly what handles it. Takes 20 seconds.">
+<meta property="og:image" content="https://ylh-quiz.netlify.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://ylh-quiz.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Your Life, Handled — Find What You Need in 20 Seconds">
+<meta name="twitter:description" content="Answer 3 quick questions — find out exactly what handles it. Takes 20 seconds.">
+<meta name="twitter:image" content="https://ylh-quiz.netlify.app/og-image.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -28,6 +40,9 @@ h1 em{font-style:italic;color:#e0b554;}
 .hero-sub strong{color:#e0b554;}
 .btn-primary{background:linear-gradient(135deg,#9c3567,#7a2852);color:#fff;border:none;border-radius:50px;padding:14px 28px;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:10px;box-shadow:0 8px 28px rgba(156,53,103,0.4);}
 .hero-note{font-size:12px;color:#6f82a0;margin-top:14px;}
+.hero-dots{display:flex;gap:8px;margin-top:22px;}
+.hero-dots button{width:8px;height:8px;border-radius:50%;border:none;background:#2c3f5c;cursor:pointer;padding:0;transition:all .2s;}
+.hero-dots button.active{background:#e0b554;width:22px;border-radius:4px;}
 .phone-center{display:flex;justify-content:center;}
 
 /* ── PHONE MOCKUP ── */
@@ -37,6 +52,17 @@ h1 em{font-style:italic;color:#e0b554;}
 .phone-brand{font-family:serif;font-size:9px;color:#c9972b;text-align:center;font-weight:600;letter-spacing:0.8px;margin-bottom:2px;}
 .phone-title{font-family:serif;font-size:12px;font-weight:700;color:#1e2d3a;text-align:center;margin-bottom:10px;line-height:1.2;}
 .phone-kpi{background:#fff;border-radius:8px;padding:7px 9px;margin-bottom:6px;border:1px solid #ede4d8;display:flex;justify-content:space-between;align-items:center;}
+.phone-check-row{background:#fff;border-radius:8px;padding:7px 9px;margin-bottom:6px;border:1px solid #ede4d8;display:flex;align-items:center;gap:7px;}
+.phone-check-icon{flex:0 0 auto;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;}
+.phone-check-icon.on{background:#2d7a55;}
+.phone-check-icon.off{background:none;border:2px solid #c9972b;}
+.phone-check-label{flex:1;font-size:10px;color:#1e2d3a;}
+.phone-check-status{font-size:9px;color:#8a948f;}
+.phone-check-status.pend{color:#c9972b;font-weight:700;}
+.phone-budget-card{background:#fdf3dc;border:1px solid #c9972b;border-radius:8px;padding:9px;margin-top:8px;}
+.phone-budget-label{font-size:9px;color:#8a948f;margin-bottom:3px;}
+.phone-budget-val{font-family:Georgia,serif;font-weight:700;font-size:16px;color:#1e2d3a;}
+.phone-budget-val span{font-size:10px;font-weight:400;color:#8a948f;}
 .phone-kpi .kk{font-size:8px;color:#9a8e84;font-weight:600;}
 .phone-kpi .kv{font-size:10px;font-weight:700;}
 .phone-progress-card{background:#fff;border-radius:8px;padding:8px 9px;margin-bottom:8px;border:1px solid #ede4d8;}
@@ -141,34 +167,31 @@ footer p{color:#6f82a0;font-size:12px;line-height:1.7;}
         <span class="star">✦</span>
         <span>Your Life, Handled</span>
       </div>
-      <h1><em>Your life,</em><br>handled.</h1>
-      <p class="hero-lead">The birthday. The trip. The watch party. <strong>You've got this — let's make this one actually easy.</strong></p>
-      <p class="hero-sub">Answer three quick questions and I'll show you the exact planner built for it — the checklist, the guests, the budget, all in one place so you're not tracking it in your head or across six different apps. <strong>From $9. Yours to keep.</strong></p>
+      <h1 id="hero-h1" style="transition:opacity .25s">The trip. The party.<br>The watch group.<br><em>Actually planned.</em></h1>
+      <p class="hero-lead">3 quick questions. <strong>I'll show you exactly what handles it.</strong></p>
+      <p class="hero-sub" id="hero-sub" style="transition:opacity .25s">The checklist, the guests, the budget — all in one place so you're not tracking it in your head or across six different apps. <strong>From $9. Yours to keep.</strong></p>
       <button class="btn-primary" onclick="document.getElementById('qs').scrollIntoView({behavior:'smooth'})">
-        <span>Show me what I need</span>
-        <span style="font-size:18px">↓</span>
+        <span>Take the quiz</span>
+        <span style="font-size:18px">→</span>
       </button>
       <p class="hero-note">Takes 20 seconds · no account needed</p>
+      <div class="hero-dots" id="hero-dots"></div>
     </div>
-    <!-- Phone mockup (birthday dashboard) -->
+    <!-- Phone mockup (rotates through birthday / trip / watch party) -->
     <div class="phone-center">
       <div class="phone">
         <div class="phone-notch"></div>
-        <div class="phone-screen">
+        <div class="phone-screen" id="hero-phone-screen" style="transition:opacity .25s">
           <p class="phone-brand">✦ Your Life, Handled</p>
-          <p class="phone-title">Mia's 7th Birthday</p>
-          <div class="phone-kpi"><span class="kk">Guests confirmed</span><span class="kv" style="color:#9c3567">18 / 24</span></div>
-          <div class="phone-kpi"><span class="kk">Checklist</span><span class="kv" style="color:#c9972b">73%</span></div>
-          <div class="phone-kpi"><span class="kk">Budget spent</span><span class="kv" style="color:#2d7a55">$284 / $400</span></div>
+          <p class="phone-title" id="hero-mock-title"></p>
+          <div id="hero-mock-kpis"></div>
           <div class="phone-progress-card">
-            <div class="phone-progress-head"><span>Readiness</span><span class="pv">73%</span></div>
-            <div class="phone-track"><div class="phone-fill"></div></div>
+            <div class="phone-progress-head"><span>Readiness</span><span class="pv" id="hero-mock-pct"></span></div>
+            <div class="phone-track"><div class="phone-fill" id="hero-mock-fill"></div></div>
           </div>
           <div class="phone-next">
             <p class="phone-next-label">Next up</p>
-            <div class="phone-next-item"><div class="phone-dot"></div><span>Order the cake</span></div>
-            <div class="phone-next-item"><div class="phone-dot"></div><span>Buy party favours</span></div>
-            <div class="phone-next-item"><div class="phone-dot"></div><span>Set up the space</span></div>
+            <div id="hero-mock-next"></div>
           </div>
         </div>
         <div class="phone-bar"></div>
@@ -325,6 +348,8 @@ const FUNCTION_URL = "https://ylh-quiz.netlify.app/.netlify/functions/subscribe"
 const PRODUCTS_CONFIG = [
   {
     key: 'birthday',
+    heroH1: 'The birthday.<br><em>Actually planned.</em>',
+    heroSub: "The guest list, the food, the budget — usually scattered across six places in your head. Not anymore.",
     emoji: '\uD83C\uDF88',
     qLabel: 'A birthday party',
     badge: 'Birthday Party, Handled',
@@ -361,6 +386,8 @@ const PRODUCTS_CONFIG = [
   },
   {
     key: 'trip',
+    heroH1: 'The trip.<br><em>Actually planned.</em>',
+    heroSub: "The route, the bookings, the packing list, the budget — one place instead of fifteen tabs.",
     emoji: '\uD83D\uDE97',
     qLabel: 'A trip',
     badge: 'The Trip, Handled',
@@ -397,6 +424,8 @@ const PRODUCTS_CONFIG = [
   },
   {
     key: 'watchparty',
+    heroH1: 'The watch party.<br><em>Actually planned.</em>',
+    heroSub: 'Every match, the guest list, the food, the budget, the score — so match day is just the game.',
     emoji: '\u26BD',
     qLabel: 'A World Cup watch party',
     badge: 'World Cup, Handled',
@@ -482,8 +511,73 @@ const PRODUCTS = Object.fromEntries(PRODUCTS_CONFIG.map(p => [p.key, {
   badge: p.badge, emoji: p.emoji, name: p.name, head: p.head, sub: p.sub, desc: p.desc,
   price: p.price, crossSell: p.crossSell, resultImage: p.resultImage || null, accent: p.accent || '#9c3567', accentDark: p.accentDark || '#7a2852',
   mockupTitle: p.mockupTitle, mockupPct: p.mockupPct, mockupFill: p.mockupFill,
-  mockupItems: p.mockupItems, mockupNext: p.mockupNext, link: p.key
+  mockupItems: p.mockupItems, mockupNext: p.mockupNext, link: p.key,
+  heroH1: p.heroH1, heroSub: p.heroSub
 }]));
+
+/* ── HERO ROTATION ──
+   Cycles the hero headline + phone mockup through the real, live products.
+   Reuses each product's existing mockup data — no separate content to maintain.
+   Auto-advances, and the dots let a visitor jump straight to what they care about. */
+const HERO_KEYS = ['trip','birthday','watchparty'].filter(k => PRODUCTS[k] && PRODUCTS[k].heroH1);
+let heroIdx = 0, heroTimer = null;
+
+function renderHeroSlide(key, animate){
+  const p = PRODUCTS[key];
+  const h1 = document.getElementById('hero-h1');
+  const sub = document.getElementById('hero-sub');
+  const screen = document.getElementById('hero-phone-screen');
+  const apply = () => {
+    h1.innerHTML = p.heroH1;
+    sub.innerHTML = p.heroSub + ' <strong>From $' + p.price + '. Yours to keep.</strong>';
+    document.getElementById('hero-mock-title').textContent = p.mockupTitle;
+    document.getElementById('hero-mock-pct').textContent = p.mockupPct;
+    document.getElementById('hero-mock-fill').style.width = p.mockupFill;
+    document.getElementById('hero-mock-fill').style.background = 'linear-gradient(90deg,' + p.accent + ',#c9972b)';
+    const kpisEl = document.getElementById('hero-mock-kpis'); kpisEl.innerHTML = '';
+    p.mockupItems.forEach(k => {
+      const row = document.createElement('div'); row.className = 'phone-kpi';
+      row.innerHTML = '<span class="kk">' + k.label + '</span><span class="kv" style="color:' + k.color + '">' + k.val + '</span>';
+      kpisEl.appendChild(row);
+    });
+    const nextEl = document.getElementById('hero-mock-next'); nextEl.innerHTML = '';
+    p.mockupNext.forEach(t => {
+      const row = document.createElement('div'); row.className = 'phone-next-item';
+      row.innerHTML = '<div class="phone-dot"></div><span>' + t + '</span>';
+      nextEl.appendChild(row);
+    });
+  };
+  if(animate === false){ apply(); }
+  else{
+    [h1, sub, screen].forEach(el => el.style.opacity = '0');
+    setTimeout(() => { apply(); [h1, sub, screen].forEach(el => el.style.opacity = '1'); }, 250);
+  }
+  document.querySelectorAll('#hero-dots button').forEach((d,i) => d.classList.toggle('active', HERO_KEYS[i]===key));
+}
+
+function goToHeroSlide(i){
+  heroIdx = i;
+  renderHeroSlide(HERO_KEYS[heroIdx], true);
+  if(heroTimer) clearInterval(heroTimer);
+  heroTimer = setInterval(advanceHero, 6000);
+}
+function advanceHero(){
+  heroIdx = (heroIdx + 1) % HERO_KEYS.length;
+  renderHeroSlide(HERO_KEYS[heroIdx], true);
+}
+
+if(HERO_KEYS.length > 1){
+  const dotsEl = document.getElementById('hero-dots');
+  HERO_KEYS.forEach((k,i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Show ' + PRODUCTS[k].mockupTitle);
+    b.addEventListener('click', () => goToHeroSlide(i));
+    dotsEl.appendChild(b);
+  });
+  renderHeroSlide(HERO_KEYS[0], false);
+  document.querySelectorAll('#hero-dots button')[0].classList.add('active');
+  heroTimer = setInterval(advanceHero, 6000);
+}
 
 const QUESTIONS = [
   { q:"What are you trying to get sorted?",
@@ -553,6 +647,9 @@ function submitEmail(){
     contents: cfg.emailContents,
     buy_link: LINKS[cfg.key],
     price: cfg.price,
+    accent: cfg.accent || '#9c3567',
+    accentDark: cfg.accentDark || '#7a2852',
+    resultImage: cfg.resultImage || '',
     identity: cfg.emailIdentity,
     pain: cfg.emailPain,
     why: cfg.emailWhy,
@@ -570,13 +667,20 @@ function submitEmail(){
       '</td></tr></table>'
     : '';
 
+  const imageBlock = d.resultImage
+    ? '<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:14px;"><tr><td align="center">'+
+      '<img src="'+d.resultImage+'" width="240" style="width:240px;max-width:100%;border-radius:14px;display:block;" alt="'+product_name+'" />'+
+      '</td></tr></table>'
+    : '';
+
   const message=
     '<p style="margin:0 0 6px;font-family:Georgia,serif;font-size:22px;font-weight:700;color:#0d2140;">Hi '+name+',</p>'+
     '<p style="margin:0 0 22px;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#3a3228;line-height:1.5;">'+d.identity+'</p>'+
     '<p style="margin:0 0 20px;font-size:14px;color:#3a3228;line-height:1.65;">'+d.pain+'</p>'+
-    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fdf3dc;border:2px solid #c9972b;border-radius:12px;margin-bottom:20px;">'+
+    imageBlock+
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#fdf3dc;border:2px solid '+d.accent+';border-radius:12px;margin-bottom:20px;">'+
     '<tr><td style="padding:18px 20px;">'+
-    '<p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c9972b;">IT\'S HANDLED</p>'+
+    '<p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:'+d.accent+';">IT\'S HANDLED</p>'+
     '<p style="margin:0 0 8px;font-family:Georgia,serif;font-size:20px;font-weight:700;color:#0d2140;">'+product_name+'</p>'+
     '<p style="margin:0;font-size:13px;color:#3a3228;line-height:1.6;">'+d.why+'</p>'+
     '</td></tr></table>'+
@@ -584,7 +688,7 @@ function submitEmail(){
     '<p style="margin:0 0 20px;font-size:13px;color:#3a3228;">'+d.contents+'</p>'+
     urgencyBlock+
     '<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;"><tr><td align="center">'+
-    '<a href="'+d.buy_link+'" style="display:inline-block;background:#9c3567;color:#fff;font-family:Helvetica,sans-serif;font-size:15px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:40px;">Get it for $'+d.price+' &rarr;</a>'+
+    '<a href="'+d.buy_link+'" style="display:inline-block;background:linear-gradient(135deg,'+d.accent+','+d.accentDark+');color:#fff;font-family:Helvetica,sans-serif;font-size:15px;font-weight:700;text-decoration:none;padding:14px 32px;border-radius:40px;">Get it handled &mdash; $'+d.price+' &rarr;</a>'+
     '</td></tr></table>'+
     '<p style="margin:0 0 4px;font-size:12px;color:#8a948f;">&#10003; Works on your phone, iPad, or laptop</p>'+
     '<p style="margin:0 0 4px;font-size:12px;color:#8a948f;">&#10003; No app, no login \u2014 saves automatically</p>'+
